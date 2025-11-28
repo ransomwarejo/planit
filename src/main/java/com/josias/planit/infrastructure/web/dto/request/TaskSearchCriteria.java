@@ -1,4 +1,4 @@
-package com.josias.planit.application.dto.request;
+package com.josias.planit.infrastructure.web.dto.request;
 
 import com.josias.planit.domain.model.TaskPriority;
 import com.josias.planit.domain.model.TaskStatus;

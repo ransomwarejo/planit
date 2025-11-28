@@ -1,7 +1,7 @@
-package com.josias.planit.domain.port.in;
+package com.josias.planit.application.port.in;
 
-import com.josias.planit.application.dto.request.TaskSearchCriteria;
-import com.josias.planit.application.dto.response.TaskResponse;
+import com.josias.planit.infrastructure.web.dto.request.TaskSearchCriteria;
+import com.josias.planit.infrastructure.web.dto.response.TaskResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -9,6 +9,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
@@ -19,8 +20,7 @@ import java.time.LocalDateTime;
 @Table(name = "tasks")
 public class JpaTaskEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column(nullable = false)
     private String title;
@@ -35,47 +35,19 @@ public class JpaTaskEntity {
     @Column(nullable = false)
     private TaskPriority priority;
 
-    private LocalDate dueDate;
+    private LocalDateTime dueDate;
 
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @PrePersist
     protected void onCreate() {
-        createAt = LocalDateTime.now();
+        createdAt = LocalDateTime.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updateAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
-    public static JpaTaskEntity fromDomain(Task task) {
-        if (task == null) {
-            return null;
-        }
-        return JpaTaskEntity.builder()
-                .id(task.getId())
-                .title(task.getTitle())
-                .description(task.getDescription())
-                .status(task.getStatus())
-                .priority(task.getPriority())
-                .dueDate(task.getDueDate())
-                .createAt(task.getCreateAt())
-                .updateAt(task.getUpdateAt())
-                .build();
-    }
-
-    public Task toDomain() {
-        return new Task(
-                this.id,
-                this.title,
-                this.description,
-                this.status,
-                this.priority,
-                this.dueDate,
-                this.createAt,
-                this.updateAt
-        );
-    }
 }

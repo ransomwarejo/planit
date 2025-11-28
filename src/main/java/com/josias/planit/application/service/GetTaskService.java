@@ -1,24 +1,29 @@
 package com.josias.planit.application.service;
 
-import com.josias.planit.application.dto.response.TaskResponse;
-import com.josias.planit.application.mapper.TaskMapper;
+import com.josias.planit.domain.exception.DomainException;
+import com.josias.planit.infrastructure.web.dto.response.TaskResponse;
+import com.josias.planit.infrastructure.mapper.TaskMapper;
 import com.josias.planit.domain.model.Task;
-import com.josias.planit.domain.port.in.GetTaskUseCase;
-import com.josias.planit.domain.port.out.TaskRepositoryPort;
+import com.josias.planit.application.port.in.GetTaskUseCase;
+import com.josias.planit.application.port.out.TaskRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
-@RequiredArgsConstructor
 public class GetTaskService implements GetTaskUseCase {
 
-    private final TaskRepositoryPort taskRepositoryPort;
+    private final TaskRepositoryPort taskRepository;
 
-    @Override
-    public TaskResponse getById(Long id) {
-        Task task = taskRepositoryPort.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
-        return TaskMapper.toResponse(task);
+    public GetTaskService(TaskRepositoryPort taskRepository) {
+        this.taskRepository = taskRepository;
     }
 
+    @Override
+    public Task getById(UUID id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new DomainException("Task not found"));
+    }
 }
+

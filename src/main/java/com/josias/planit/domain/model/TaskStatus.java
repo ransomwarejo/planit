@@ -3,10 +3,9 @@ package com.josias.planit.domain.model;
 public enum TaskStatus {
     PENDING,
     IN_PROGRESS,
-    COMPLETED,
-    CANCELLED;
+    COMPLETED;
 
     public boolean isModifiable() {
-        return this != COMPLETED && this != CANCELLED;
+        return this != COMPLETED;
     }
 }

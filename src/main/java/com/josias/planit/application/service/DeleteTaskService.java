@@ -1,19 +1,21 @@
 package com.josias.planit.application.service;
-import com.josias.planit.domain.port.in.DeleteTaskUseCase;
-import com.josias.planit.domain.port.out.TaskRepositoryPort;
+import com.josias.planit.application.port.in.DeleteTaskUseCase;
+import com.josias.planit.application.port.out.TaskRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
-public class deleteTaskService implements  DeleteTaskUseCase {
+public class DeleteTaskService implements  DeleteTaskUseCase {
 
     private final TaskRepositoryPort taskRepositoryPort;
 
     @Override
     @Transactional
-    public void delete(Long taskId) {
+    public void delete(UUID taskId) {
         taskRepositoryPort.deleteById(taskId);
     }
 }
