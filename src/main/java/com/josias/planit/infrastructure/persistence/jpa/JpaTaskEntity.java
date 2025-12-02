@@ -1,13 +1,12 @@
 package com.josias.planit.infrastructure.persistence.jpa;
 
 
-import com.josias.planit.domain.model.Task;
 import com.josias.planit.domain.model.TaskPriority;
 import com.josias.planit.domain.model.TaskStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -20,6 +19,7 @@ import java.util.UUID;
 @Table(name = "tasks")
 public class JpaTaskEntity {
     @Id
+    @Column(name = "id", nullable = false, columnDefinition = "uuid")
     private UUID id;
 
     @Column(nullable = false)
@@ -28,11 +28,11 @@ public class JpaTaskEntity {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false)
     private TaskStatus status;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "priority", nullable = false)
     private TaskPriority priority;
 
     private LocalDateTime dueDate;
