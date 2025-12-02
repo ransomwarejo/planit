@@ -4,7 +4,7 @@ services:
     restart: always
     container_name: postgres_planit_app_container_v1
     ports:
-      - '5433:5432'
+      - '5432:5432'
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
@@ -17,7 +17,7 @@ services:
     container_name: adminer_planit_app_container_v1
     restart: always
     ports:
-      - '8090:8080'
+      - '8080:8080'
 
 volumes:
   postgres-data:  # Define a volume to persist database data
