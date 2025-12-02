@@ -7,7 +7,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PlanitApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PlanitApplication.class, args);
+        String env = System.getProperty("spring.profiles.active", "dev");
+
+        if (env.equals("dev") || env.equals("test")) {
+            io.github.cdimascio.dotenv.Dotenv dotenv = io.github.cdimascio.dotenv.Dotenv.load();
+
+            // On pousse dans System.getenv → Spring pourra lire les var
+            dotenv.entries().forEach(e ->
+                    System.setProperty(e.getKey(), e.getValue()));
+        }
+
+        SpringApplication.run(PlanitApplication.class, args);
 	}
 
 }
